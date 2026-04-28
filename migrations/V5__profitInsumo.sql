@@ -15,9 +15,9 @@ as $$
         from receta.cantidadInsumoPorReceta(p_idReceta, p_nuevaPorcion)
     )
     select
-        c.costoTotal                                           as precioProduccion,
-        c.costoTotal * (r.profit / 100)                        as precioVenta,
-        r.profit                                               as profitPorcentaje
+        round(c.costoTotal, 2)                                  as precioProduccion,
+        round(c.costoTotal * (r.profit / 100), 2)               as precioVenta,
+        round(r.profit, 2)                                      as profitPorcentaje
     from receta.receta r
     cross join costo c
     where r.id = p_idReceta;

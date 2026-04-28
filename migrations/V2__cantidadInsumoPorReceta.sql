@@ -21,12 +21,12 @@ as $$
         ri.cantidad                     as cantidadOriginal,
         r.porcionestotales              as porcionesOriginales,
         p_nuevaPorcion                  as nuevaPorcion,
-        ri.cantidad * (
+        round(ri.cantidad * (
             cast(p_nuevaPorcion as numeric) / cast(r.porcionestotales as numeric)
-        )                               as cantidadRecalculada,
-        ri.cantidad * (
+        ), 2)                           as cantidadRecalculada,
+        round(ri.cantidad * (
             cast(p_nuevaPorcion as numeric) / cast(r.porcionestotales as numeric)
-        ) * i.preciounitario            as costoRecalculado
+        ) * i.preciounitario, 2)        as costoRecalculado
     from receta.receta r
     inner join receta.recetainsumo ri on ri.idreceta = r.id
     inner join receta.insumo i         on ri.idinsumo = i.id
