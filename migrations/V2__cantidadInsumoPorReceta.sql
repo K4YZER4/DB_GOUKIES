@@ -19,16 +19,16 @@ as $$
         r.nombre                        as nombreReceta,
         i.nombre                        as nombreInsumo,
         ri.cantidad                     as cantidadOriginal,
-        r.porciones_totales             as porcionesOriginales,
+        r.porcionestotales              as porcionesOriginales,
         p_nuevaPorcion                  as nuevaPorcion,
         ri.cantidad * (
-            cast(p_nuevaPorcion as numeric) / cast(r.porciones_totales as numeric)
+            cast(p_nuevaPorcion as numeric) / cast(r.porcionestotales as numeric)
         )                               as cantidadRecalculada,
         ri.cantidad * (
-            cast(p_nuevaPorcion as numeric) / cast(r.porciones_totales as numeric)
-        ) * i.precio_unitario           as costoRecalculado
+            cast(p_nuevaPorcion as numeric) / cast(r.porcionestotales as numeric)
+        ) * i.preciounitario            as costoRecalculado
     from receta.receta r
-    inner join receta.receta_insumo ri on ri.id_receta = r.id
-    inner join receta.insumo i         on ri.id_insumo = i.id
+    inner join receta.recetainsumo ri on ri.idreceta = r.id
+    inner join receta.insumo i         on ri.idinsumo = i.id
     where r.id = p_idReceta;
 $$;

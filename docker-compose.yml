@@ -6,7 +6,7 @@ services:
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin123
-      POSTGRES_DB: mydb
+      POSTGRES_DB: goukiesDB
     ports:
       - "5432:5432"
     volumes:
@@ -34,8 +34,8 @@ services:
     depends_on:
       - postgres
     command: >
-      -url=jdbc:postgresql://postgres:5432/mydb -user=admin -password=admin123
-      -schemas=receta,userSchema -connectRetries=60 migrate
+      -url=jdbc:postgresql://postgres:5432/goukiesDB -user=admin
+      -password=admin123 -schemas=receta,userSchema -connectRetries=60 migrate
     volumes:
       # carpeta local donde tendrás tus migraciones
       - ./migrations:/flyway/sql

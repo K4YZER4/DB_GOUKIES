@@ -16,12 +16,8 @@ as $$
     )
     select
         c.costoTotal                                           as precioProduccion,
-        c.costoTotal + r.profit::numeric                       as precioVenta,
-        case
-            when c.costoTotal > 0
-            then (r.profit::numeric / c.costoTotal) * 100
-            else 0
-        end                                                    as profitPorcentaje
+        c.costoTotal * (r.profit / 100)                        as precioVenta,
+        r.profit                                               as profitPorcentaje
     from receta.receta r
     cross join costo c
     where r.id = p_idReceta;

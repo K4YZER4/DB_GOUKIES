@@ -21,21 +21,21 @@ as $$
         r.nombre                                                as nombreReceta,
         ing.nombre                                              as nombreProducto,
         rp.cantidad                                             as cantidadOriginalUnidad,
-        rp.cantidad * cast(p.cantidad_unitario as numeric)      as cantidadOriginalBase,
-        r.porciones_totales                                     as porcionesOriginales,
+        rp.cantidad * cast(p.cantidadunitario as numeric)       as cantidadOriginalBase,
+        r.porcionestotales                                      as porcionesOriginales,
         p_nuevaPorcion                                          as nuevaPorcion,
         rp.cantidad * (
-            cast(p_nuevaPorcion as numeric) / cast(r.porciones_totales as numeric)
+            cast(p_nuevaPorcion as numeric) / cast(r.porcionestotales as numeric)
         )                                                       as cantidadRecalculadaUnidad,
         rp.cantidad * (
-            cast(p_nuevaPorcion as numeric) / cast(r.porciones_totales as numeric)
-        ) * cast(p.cantidad_unitario as numeric)                as cantidadRecalculadaBase,
+            cast(p_nuevaPorcion as numeric) / cast(r.porcionestotales as numeric)
+        ) * cast(p.cantidadunitario as numeric)                 as cantidadRecalculadaBase,
         rp.cantidad * (
-            cast(p_nuevaPorcion as numeric) / cast(r.porciones_totales as numeric)
-        ) * p.precio_medio                                      as costoRecalculado
+            cast(p_nuevaPorcion as numeric) / cast(r.porcionestotales as numeric)
+        ) * p.preciomedio                                       as costoRecalculado
     from receta.receta r
-    inner join receta.receta_producto rp on rp.id_receta   = r.id
-    inner join receta.producto        p  on rp.id_producto = p.id
-    inner join receta.ingrediente     ing on p.id_ingrediente = ing.id
+    inner join receta.recetaproducto rp on rp.idreceta   = r.id
+    inner join receta.producto        p  on rp.idproducto = p.id
+    inner join receta.ingrediente     ing on p.idingrediente = ing.id
     where r.id = p_idReceta;
 $$;
